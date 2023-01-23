@@ -51,18 +51,9 @@ class decesion_loop:
         
 
     def train(self):
-        for i in range(500):
-            score = 0
-            train_X, val_X, train_y, val_y = train_test_split(self.data, self.labels, random_state=i)
-            self.clf = Pipeline([('clf', KNeighborsClassifier()), ])
-            self.clf.fit(train_X, train_y)
-            predicted = self.clf.predict(val_X)
-            k = metrics.confusion_matrix(val_y, predicted)
-            # for k in range(0, len(val_y) - 1):
-            #     print(str(val_X[k]) + '     ' + str(val_y[k]) + '   :   ' + str(predicted[k]))
-            fscore = float(f1_score(val_y, predicted, average='weighted')) #, zero_division=1))
-            score += fscore
-        print('accuracy = ' + str(score/500))
+        train_X, val_X, train_y, val_y = train_test_split(self.data, self.labels, random_state=0)
+        self.clf = Pipeline([('clf', KNeighborsClassifier()), ])
+        self.clf.fit(train_X, train_y)
 
     def predict(self, scenario):
         self.start = timer()
